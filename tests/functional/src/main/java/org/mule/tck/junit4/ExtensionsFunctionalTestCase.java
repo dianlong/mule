@@ -17,7 +17,7 @@ import org.mule.extension.ExtensionManager;
 import org.mule.extension.introspection.declaration.Describer;
 import org.mule.extension.introspection.Extension;
 import org.mule.extension.introspection.ExtensionFactory;
-import org.mule.extension.resources.GenerableResource;
+import org.mule.extension.resources.GeneratedResource;
 import org.mule.extension.resources.ResourcesGenerator;
 import org.mule.extension.resources.spi.GenerableResourceContributor;
 import org.mule.module.extension.internal.introspection.AnnotationsBasedDescriber;
@@ -195,7 +195,7 @@ public abstract class ExtensionsFunctionalTestCase extends FunctionalTestCase
         Method method = org.springframework.util.ReflectionUtils.findMethod(cl.getClass(), "addURL", URL.class);
         method.setAccessible(true);
 
-        for (GenerableResource resource : generator.dumpAll())
+        for (GeneratedResource resource : generator.dumpAll())
         {
             URL generatedResourceURL = new File(generatedResourcesDirectory, resource.getFilePath()).toURI().toURL();
             method.invoke(cl, generatedResourceURL);
@@ -267,7 +267,7 @@ public abstract class ExtensionsFunctionalTestCase extends FunctionalTestCase
         }
 
         @Override
-        protected void write(GenerableResource resource)
+        protected void write(GeneratedResource resource)
         {
             File targetFile = new File(targetDirectory, resource.getFilePath());
             try
